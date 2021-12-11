@@ -1,6 +1,6 @@
+
 <!DOCTYPE html>
 <html lang="en">
-
     <style>
         #body{
             background: url(../../images/back.jpg) no-repeat center center fixed; 
@@ -17,7 +17,7 @@
             right: 0;
             margin: auto;
             width: 400px;
-            height: 150px;
+            height: 250px;
             background-color: hotpink;
             border-radius: 30px;
         }
@@ -33,19 +33,27 @@
             text-align: center;
             margin-top: 10px;
         }
+        #h4{
+            text-align: center;
+            margin-top: 5px;
+        }
     </style>
     <head>
         <meta charset="UTF-8">
-        <title>Apple Pie Oauth - Unknown Error</title>
-        <link rel="stylesheet" href="../css/style.css">
+        <title>Apple Pie Oauth - Error</title>
+        <link rel="icon" type="image/jpg" href="../../../images/favicon.png">
     </head>
 
     <body id="body">
-        
         <div id="info">
             <h3 id="h1">Something went wrong!</h3>
             <h3 id="h2">This error was logged successfully.</h3>
             <h3 id="h3">You can <a href="https://tockanest.com">go back</a> to the main page or <a href="https://steamlogin.tockanest.com">retry</a> linking your account.</h3>
         </div>
-        
+    </body>
+    <base href="file:../../logs">
+    <script>
+        var errorCode = window.location.href.split("=")[1];
+        document.getElementById("info").innerHTML += `<h3 id='h4'>Error Code: ${errorCode ? errorCode: "Missing"}</h3>` +  `<h3 id='h4'>Please, contact support at the Discord Server.</h3>`;
+    </script>  
 </html>

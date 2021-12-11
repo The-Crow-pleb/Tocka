@@ -1,9 +1,10 @@
 {
   "dependencies": {
+    "discord.js": "^13.3.1",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "force-ssl-heroku": "^1.0.2",
-    "mongoose": "^6.0.12",
+    "mongoose": "^6.1.1",
     "node-fetch": "^2.6.1",
     "nodemon": "^2.0.15"
   },
@@ -12,6 +13,11 @@
   "main": "start.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "nodemonConfig": {
+    "ignore": [
+      "logs/*.json"
+    ]
   },
   "author": "",
   "license": "ISC",
