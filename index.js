@@ -2,12 +2,13 @@ require("dotenv").config();
 
 const 
 	{steamloginError} = require("./public/src/functions/steamloginError"),
+    	steamSchema = require("./public/src/db/schemas/steamSchema.js")
 	fetch = require('node-fetch'),
 	express = require('express'),
 	db = require("./public/src/db/db"),
 	path = require('path'),
 	app = express()
-
+	
 app.get('/', async ({ query }, response) => {response.sendFile('index.html', { root: './public/src/html/' }) });
 
 app.get('/success', async ({ query }, response) => {
@@ -20,7 +21,7 @@ app.get('/success', async ({ query }, response) => {
 					method: 'POST',
 					body: new URLSearchParams({
 						client_id: "762077336812126228",
-						client_secret: process.env.avb,
+						client_secret: process.env.CLIENT_SECRET,
 						code,
 						grant_type: 'authorization_code',
 						redirect_uri: `https://steamlogin.tockanest.com:2096/success`,
@@ -39,11 +40,9 @@ app.get('/success', async ({ query }, response) => {
 					userData = await userQuery.json(),
 					steamQuery = await steamSchema.findOne({_id: userData.id})
 				if(!steamQuery) {
-					const 
-						steamAccount = accountsData.find(account => account.type === 'steam')
-					if(!steamAccount) {
-						return response.redirect('nolinkedsteam');
-					} else {
+					const steamAccount = accountsData.find(account => account.type === 'steam')
+					if(!steamAccount) { return response.redirect('nolinkedsteam') } 
+					else {
 						const steamId = steamAccount.id;
 						await steamSchema.findOneAndUpdate({_id: userData.id}, {_id:userData.id, steamId: steamId}, {upsert:true})
 					}
@@ -53,7 +52,7 @@ app.get('/success', async ({ query }, response) => {
 			} else  {
 				const errorData = [{"date":`${new Date()}`,"status_code":`${oauthResult.status}`,"status_text":`${oauthResult.statusText}`,"result_json":`${JSON.stringify(await oauthResult.json())}`}]
 				await steamloginError(errorData, response)
-            }
+            		}
 			return response.sendFile('success.html', { root: './public/src/html/' })
 		} catch (error) { 
 			console.log(error)
