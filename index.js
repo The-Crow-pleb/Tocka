@@ -25,7 +25,7 @@ app.get('/steamlogin/success', async ({ query }, response) => {
 						client_secret: process.env.avb,
 						code,
 						grant_type: 'authorization_code',
-						redirect_uri: `https://tockanest.com:2096/steamlogin/success`,
+						redirect_uri: `https://steamlogin.tockanest.com:2096/success`,
 						scope: 'identify%20connections',
 					}),
 					headers: {
@@ -64,9 +64,9 @@ app.get('/steamlogin/success', async ({ query }, response) => {
 	}
 });
 
-app.get("/steamlogin/alreadylinked", ({ query }, response) => { response.sendFile('alreadyLinked.html', { root: './public/src/html/steamlogin/' }) })
-app.get("/steamlogin/nolinkedsteam", ({ query }, response) => { response.sendFile('nolinkedsteam.html', { root: './public/src/html/steamlogin/' }) })
-app.get("/steamlogin/error", ({ query }, response) => { response.sendFile('error.html', { root: './public/src/html/steamlogin/' }) })
+app.get("/alreadylinked", ({ query }, response) => { response.sendFile('alreadyLinked.html', { root: './public/src/html/steamlogin/' }) })
+app.get("/nolinkedsteam", ({ query }, response) => { response.sendFile('nolinkedsteam.html', { root: './public/src/html/steamlogin/' }) })
+app.get("/error", ({ query }, response) => { response.sendFile('error.html', { root: './public/src/html/steamlogin/' }) })
 //app.get("/api/discordint", ({query}, response) => {console.log(response)} )
 app.use(express.static(path.join(__dirname, 'public')));
 
