@@ -8,11 +8,9 @@ const
 	path = require('path'),
 	app = express()
 
-app.get('/steamlogin/', async ({ query }, response) => {
-	response.sendFile('index.html', { root: './public/src/html/steamlogin/' });
-});
+app.get('/', async ({ query }, response) => {response.sendFile('index.html', { root: './public/src/html/steamlogin/' }) });
 
-app.get('/steamlogin/success', async ({ query }, response) => {
+app.get('/success', async ({ query }, response) => {
 	const { code } = query
 		
 	if (code) {
