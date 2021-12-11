@@ -8,7 +8,7 @@ const
 	path = require('path'),
 	app = express()
 
-app.get('/', async ({ query }, response) => {response.sendFile('index.html', { root: './public/src/html/steamlogin/' }) });
+app.get('/', async ({ query }, response) => {response.sendFile('index.html', { root: './public/src/html/' }) });
 
 app.get('/success', async ({ query }, response) => {
 	const { code } = query
@@ -54,7 +54,7 @@ app.get('/success', async ({ query }, response) => {
 				const errorData = [{"date":`${new Date()}`,"status_code":`${oauthResult.status}`,"status_text":`${oauthResult.statusText}`,"result_json":`${JSON.stringify(await oauthResult.json())}`}]
 				await steamloginError(errorData, response)
             }
-			return response.sendFile('success.html', { root: './public/src/html/steamlogin/' })
+			return response.sendFile('success.html', { root: './public/src/html/' })
 		} catch (error) { 
 			console.log(error)
 			// await steamloginError(oauthResult, response)
@@ -62,9 +62,9 @@ app.get('/success', async ({ query }, response) => {
 	}
 });
 
-app.get("/alreadylinked", ({ query }, response) => { response.sendFile('alreadyLinked.html', { root: './public/src/html/steamlogin/' }) })
-app.get("/nolinkedsteam", ({ query }, response) => { response.sendFile('nolinkedsteam.html', { root: './public/src/html/steamlogin/' }) })
-app.get("/error", ({ query }, response) => { response.sendFile('error.html', { root: './public/src/html/steamlogin/' }) })
+app.get("/alreadylinked", ({ query }, response) => { response.sendFile('alreadyLinked.html', { root: './public/src/html/' }) })
+app.get("/nolinkedsteam", ({ query }, response) => { response.sendFile('nolinkedsteam.html', { root: './public/src/html/' }) })
+app.get("/error", ({ query }, response) => { response.sendFile('error.html', { root: './public/src/html/' }) })
 //app.get("/api/discordint", ({query}, response) => {console.log(response)} )
 app.use(express.static(path.join(__dirname, 'public')));
 
